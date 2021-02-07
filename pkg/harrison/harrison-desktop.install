@@ -1,0 +1,11 @@
+post_install() {
+    post_upgrade
+}
+
+post_upgrade() {
+    systemctl enable --now sddm rngd
+    cp ./harrison-desktop-i3-config ~/.config/i3/config
+    cp ./harrison-desktop-i3-exit-menu ~/.config/i3/scripts/exit_menu
+    cp ./harrison-desktop-polybar-config ~/.config/polybar/config
+    cp ./harrison-desktop-compton-config ~/.config/compton.conf
+}

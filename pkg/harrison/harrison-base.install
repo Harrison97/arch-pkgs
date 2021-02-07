@@ -1,0 +1,15 @@
+post_install() {
+    post_upgrade
+}
+
+post_upgrade() {
+    ln -sf /usr/share/zoneinfo/US/Central "/etc/localtime"
+    echo "LANG=en_US.UTF-8" > /etc/locale.conf
+    sed 's/#en_US/en_US/' -i /etc/locale.gen
+    locale-gen
+    cp ./harrison-base.bash_profile ~/.bash_profile
+    cp ./harrison-base.bashrc ~/.bashrc
+    cp ./harrison-base.vimrc ~/.vimrc
+    cp ./harrison-base.Xresources ~/.Xresources
+    cp ./harrison-base.fehbg ~/.fehbg
+}

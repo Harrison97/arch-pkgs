@@ -1,0 +1,63 @@
+# Maintainer: Harrison Hayes <harrisonhayes97@yahoo.com>
+pkgname=(harrison-base harrison-devel harrison-desktop)
+pkgver=0.0.2
+pkgrel=1
+pkgdesc="System configuration for harrison systems"
+arch=('any')
+url="https://github.com/harrison97/arch-pkgs"
+license=('MIT')
+
+
+source=(
+    harrison-base.bash_profile
+    harrison-base.bashrc
+    harrison-base.vimrc
+    harrison-desktop-compton-config
+    harrison-desktop-i3-config
+    harrison-desktop-i3-exit_menu
+    harrison-desktop-polybar-config
+    harrison-desktop.fehbg
+    harrison-desktop.Xresources
+)
+
+
+package_harrison-base() {
+    install = harrison-base.install
+    depends(harrison-base)
+
+    depends += (
+        bash bzip2 coreutils cryptsetup device-mapper dhcpcd diffutils e2fsprogs
+        file filesystem findutils gawk gcc-libs gettext glibc grep gzip
+        inetutils iproute2 iputils jfsutils less licenses linux linux-firmware
+        logrotate lvm2 man-db man-pages mdadm netctl pacman pciutils perl
+        procps-ng psmisc reiserfsprogs s-nail sed shadow sysfsutils
+        systemd-sysvcompat tar texinfo usbutils util-linux which xfsprogs
+    )
+    # Explicitly removed: vi nano
+
+    depends += (
+        sudo vim ranger wget unzip dialog htop openssh
+    )
+
+}
+
+package_harrison-desktop() {
+    install = harrison-desktop.install
+
+    # I3 Desktop
+    depends += (rofi i3-gaps i3status i3blocks i3lock compton)
+    install -Dm 0644 harrison-desktop-i3-config "${pkgdir}/etc/i3/harrison-desktop-config"
+
+
+    # Utility
+    depends+=(redshift)
+}
+
+
+package_harrison-devel() {
+
+    depends(harrison-base)
+
+    depends += (python3)
+
+}
